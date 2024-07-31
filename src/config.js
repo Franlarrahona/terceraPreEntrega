@@ -22,6 +22,8 @@ const config = {
     MONGODB_URI: process.env.MONGODB_URI,
     SECRET: process.env.SECRET,
     PRODUCTS_PER_PAGE:10,
+    GMAIL_APP_PASS: 'epml xoee lnzt uhkr',
+    GMAIL_APP_USER: 'francisco.larrahona2004@gmail.com'
 }
 
 export default config;

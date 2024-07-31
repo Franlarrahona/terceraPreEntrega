@@ -1,9 +1,33 @@
 import { Router } from "express";
 import Controller from "../controllers/carts.controller.js"
+import nodemailer from 'nodemailer';
+import  config  from "../config.js";
 
 const router = Router();
 const controller = new Controller();
+const transport = nodemailer.createTransport({
+    service:'gmail',
+    port:587,
+    auth:{
+        user: config.GMAIL_APP_USER,
+        pass: config.GMAIL_APP_PASS
+    }
+})
 
+
+router.get('/mail', async(req,res) =>{
+    try{
+        const confirmation = await transport.sendMail({
+            from: `programador estudiante <${config.GMAIL_APP_USER}>`,
+            to:'correo ficticio @gmail.com',
+            subject:'intento de mailing',
+            html:'<h1> texto de prueba </h1>'
+        })
+        res.status(200).send({status:"ok", data: confirmation})
+    }catch(err){
+        res.status(500).send({status: 'err', data: err.message})
+    }
+})
 
 router.get('/', async (req, res) =>{
     try{
